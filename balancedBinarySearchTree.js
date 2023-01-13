@@ -11,11 +11,27 @@
 // insert pseudocode:
 // 1- Start from root
 // 2- compare new value to insert with the root
-// 2a- if less than root, then recursively call left subtree
+// 2a - if less than root, then recursively call left subtree
 // 2b - if greater than root, then recursivelt call right subtree
 // 3- after reaching the end: 
 // 3a - insert new node at left if less than current
 // 3b - insert new node at right if greater than current
+
+
+// delete pseudocode:
+// 1- Start from root
+// 2- compare value with root value until match is found
+// 2a - if less than root value, move recursively left
+// 2b - if greater than root valye, move recursively right
+// 3- when a match is found:
+// 3a - If the node is a leaf:
+// 3a --- Remove it from the tree by removing the reference to it from the root node
+// 3b - If the node has only one child:
+// 3b --- Copy the child value to the root node and delete the child as in 3a
+// 3c - If the node has two children:
+// 3c --- Find inorder successor of the node (thing that's next biggest):
+// 3c ----- Go to the right subtree of the node, then keep going left until you can't anymore
+// 3c ----- Make that new item the new root node. if the new item had right children, follow 3b
 
 
 class Node {
@@ -57,6 +73,9 @@ class Tree {
             }
         }
     }
+     delete(value, rootNode = this.root){
+        
+     }
 }
 
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
