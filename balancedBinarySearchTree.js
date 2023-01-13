@@ -24,15 +24,17 @@ class Tree {
     buildTree(array){
         const start = 0;
         const end = array.length - 1
-        const midpoint = Math.floor((start + end)/2)
         if (end < start) return null
+        const midpoint = Math.floor((start + end)/2)
         const newNode = new Node(array[midpoint])
         newNode.left = this.buildTree(array.slice(start, midpoint))
         newNode.right = this.buildTree(array.slice(midpoint + 1))
         return newNode
     }
 
-    
+    insert(value){
+
+    }
 
 }
 
