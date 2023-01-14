@@ -133,11 +133,43 @@ class Tree {
             }
         }
     }
+    // note: use linked list for searchQueue if BST is expected to be large
+    levelOrderMap(runFunction = null){
+        let searchQueue = [this.root]
+        if(runFunction === null){
+            let collectionArray = []
+            while(searchQueue.length > 0){
+                const nextNode = searchQueue.shift()
+                collectionArray.push(nextNode.value)
+                if(nextNode.left !== null){
+                    searchQueue.push(nextNode.left)
+                }
+                if(nextNode.right !== null){
+                    searchQueue.push(nextNode.right)
+                }
+            }
+            return collectionArray
+        } else {
+            while(searchQueue.length > 0){
+                const nextNode = searchQueue.shift()
+                runFunction(nextNode)
+                if(nextNode.left !== null){
+                    searchQueue.push(nextNode.left)
+                }
+                if(nextNode.right !== null){
+                    searchQueue.push(nextNode.right)
+                }
+            }
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
 prettyPrint(myTree.root)
-console.log(myTree.find(8))
+myTree.levelOrderMap(node => {
+    node.value *= 2
+})
+prettyPrint(myTree.root)
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
