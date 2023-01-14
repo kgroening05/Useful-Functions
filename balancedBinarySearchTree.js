@@ -114,17 +114,30 @@ class Tree {
                 return node.value
             }
             return this.#findInorderSuccessor(node.left)
-    }   
+    }  
     
+    find(value){
+        return this.#findRec(value, this.root)
+    }
+    
+    #findRec (value, root){
+        if (value === root.value){
+            return root
+        }else if (value < root.value){
+            if (root.left !== null){
+                return this.#findRec(value, root.left)
+            }
+        } else if (value > root.value){
+            if (root.right !== null){
+                return this.#findRec(value, root.right)
+            }
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
-myTree.insert(3)
-myTree.insert(5)
-myTree.insert(6)
 prettyPrint(myTree.root)
-myTree.delete(2)
-prettyPrint(myTree.root)
+console.log(myTree.find(8))
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
