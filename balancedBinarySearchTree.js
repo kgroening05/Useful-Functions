@@ -73,15 +73,57 @@ class Tree {
             }
         }
     }
-     delete(value, rootNode = this.root){
-        
-     }
-}
+    delete(value){
+        this.root = this.#removeNode(value, this.root)
+    }
 
+    #removeNode(value, root){
+        // base case
+        if (root === null) return root
+
+        // equality found
+        if (value === root.value){
+            // check if the node is a leaf or has one child
+            if (root.left === null && root.right === null){
+                return null
+            } else if (root.left === null){
+                return root.right
+            } else if (root.right === null){
+                return root.left
+            } else {
+                // the node must have 2 children
+                // find inorder successor
+                root.value = this.#findInorderSuccessor(root.right)
+                // delete inorder successor
+                root.right = this.#removeNode(root.value, root.right)
+                return root
+            }
+        }
+        
+        // equality not found, recur down the tree
+        if (value > root.value){
+            root.right = this.#removeNode(value, root.right)
+            return root
+        } else if (value < root.value){
+            root.left = this.#removeNode(value, root.left)
+            return root
+        }
+    }
+    #findInorderSuccessor(node){
+            if (node.left === null){
+                return node.value
+            }
+            return this.#findInorderSuccessor(node.left)
+    }   
+    
+}
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
+myTree.insert(3)
+myTree.insert(5)
+myTree.insert(6)
 prettyPrint(myTree.root)
-myTree.insert(19)
+myTree.delete(2)
 prettyPrint(myTree.root)
 
 // recursive pretty print function for visualizing tree
