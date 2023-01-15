@@ -216,11 +216,23 @@ class Tree {
             runFunction(root)
         }
     }
+
+    height(value){
+        return _searchValue(value, this.find(value))-1;
+        function _searchValue(value, root){
+            if (root === null){
+                return 0
+            }
+            let leftHeight = _searchValue(value, root.left);
+            let rightHeight = _searchValue(value, root.right);
+            return Math.max(leftHeight, rightHeight) + 1
+        }
+    }
 }
-const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
+const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 19, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
 prettyPrint(myTree.root)
-console.log(myTree.postOrderMap())
+console.log(myTree.height(40))
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
