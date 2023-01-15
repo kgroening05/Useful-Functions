@@ -180,11 +180,29 @@ class Tree {
             _addNextNode(root.right, runFunction)
         }
     }
+
+    preOrderMap(runFunction = null){
+        if(runFunction !== null){
+            _addNextNode(this.root, runFunction)
+        } else {
+            let searchStack = []
+            _addNextNode(this.root, (node) => {
+                searchStack.push(node.value)
+            })
+            return searchStack
+        }
+        function _addNextNode(root, runFunction){
+            if (root === null) return
+            runFunction(root)
+            _addNextNode(root.left, runFunction)
+            _addNextNode(root.right, runFunction)
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
-// prettyPrint(myTree.root)
-console.log(myTree.inOrderMap())
+prettyPrint(myTree.root)
+console.log(myTree.preOrderMap())
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
