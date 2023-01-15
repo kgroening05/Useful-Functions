@@ -258,12 +258,28 @@ class Tree {
             return (Math.max(leftBal, rightBal) +1)
         }
     }
+
+    rebalance(){
+        const newArray = this.inOrderMap()
+        console.log(newArray)
+        this.root = this.buildTree(newArray)
+    }
 }
-const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 19, 30, 35, 40, 41, 60, 75, 100]
+const testArray = [ 1,  2,   3,   4,  8, 10, 15, 16, 18,  19,  30, 35, 40, 41, 60, 75, 100, 101]
 const myTree = new Tree(testArray)
-myTree.insert(3)
+myTree.insert(5)
+myTree.insert(5)
+myTree.insert(7)
+myTree.insert(9)
+myTree.insert(11)
+myTree.insert(12)
 prettyPrint(myTree.root)
 console.log(myTree.isBalanced())
+myTree.rebalance()
+prettyPrint(myTree.root)
+console.log(myTree.isBalanced())
+
+
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
