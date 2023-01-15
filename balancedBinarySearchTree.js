@@ -162,14 +162,29 @@ class Tree {
             }
         }
     }
+
+    inOrderMap(runFunction = null){ // left, root, right
+        if(runFunction !== null){
+            _addNextNode(this.root, runFunction)
+        } else {
+            let searchStack = []
+            _addNextNode(this.root, (node) => {
+                searchStack.push(node.value)
+            })
+            return searchStack
+        }
+        function _addNextNode(root, runFunction){
+            if (root === null) return
+            _addNextNode(root.left, runFunction)
+            runFunction(root)
+            _addNextNode(root.right, runFunction)
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
-prettyPrint(myTree.root)
-myTree.levelOrderMap(node => {
-    node.value *= 2
-})
-prettyPrint(myTree.root)
+// prettyPrint(myTree.root)
+console.log(myTree.inOrderMap())
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
