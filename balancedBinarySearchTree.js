@@ -245,11 +245,25 @@ class Tree {
             return Math.max(leftDepth, rightDepth) + 1
         }
     }
+
+    isBalanced(){
+        return (_checkBalance(this.root) > 1)
+        function _checkBalance(root){
+            if (root === null) return 0
+            let leftBal = _checkBalance(root.left);
+            if (leftBal == -1) return -1
+            let rightBal = _checkBalance(root.right);
+            if (rightBal == -1) return -1
+            if (Math.abs(leftBal - rightBal) > 1) return -1
+            return (Math.max(leftBal, rightBal) +1)
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 19, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
+myTree.insert(3)
 prettyPrint(myTree.root)
-console.log(myTree.depth(100))
+console.log(myTree.isBalanced())
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
