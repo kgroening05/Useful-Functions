@@ -228,11 +228,28 @@ class Tree {
             return Math.max(leftHeight, rightHeight) + 1
         }
     }
+
+    depth(value){
+        return _searchValue(value, this.root) -1;
+        function _searchValue(value, root){
+            if (root === null){
+                return 0
+            }
+            if (root.value === value){
+                return 1
+            }
+            let leftDepth = 0
+            let rightDepth = 0
+            if (value < root.value) {leftDepth = _searchValue(value, root.left);}
+            if (value > root.value) {rightDepth = _searchValue(value, root.right);}
+            return Math.max(leftDepth, rightDepth) + 1
+        }
+    }
 }
 const testArray = [1, 2, 4, 8, 10, 15, 16, 18, 19, 30, 35, 40, 41, 60, 75, 100]
 const myTree = new Tree(testArray)
 prettyPrint(myTree.root)
-console.log(myTree.height(40))
+console.log(myTree.depth(100))
 
 // recursive pretty print function for visualizing tree
 function prettyPrint (node, prefix = '', isLeft = true){
